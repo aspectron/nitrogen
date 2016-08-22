@@ -1,0 +1,14 @@
+{
+  "name": "nitrogen",
+  "version": "1.0.0",
+  "description": "Common utilities",
+  "main": "build/Release/nitrogen.node",
+  "repository": { "type": "git", "url": "git://github.com/aspectron/nitrogen.git" },
+  "author": "Aspectron Inc.",
+  "license": "MIT",
+  "bugs": { "url": "https://github.com/aspectron/nitrogen/issues" },
+  "homepage": "https://github.com/aspectron/nitrogen#readme",
+  "dependencies": {
+    "v8pp": "^1.0"
+  }
+}
