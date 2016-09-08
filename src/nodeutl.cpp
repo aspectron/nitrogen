@@ -1,18 +1,5 @@
 #include "nitrogen/nodeutil.hpp"
 
-#include <v8pp/convert.hpp>
-#include <v8pp/call_v8.hpp>
-#include <v8pp/object.hpp>
-
-v8::Handle<v8::Value> require(v8::Handle<v8::Object> module, char const* name)
-{
-	v8::Isolate* isolate = module->GetIsolate();
-	v8::HandleScope scope(isolate);
-	v8::Local<v8::Function> require;
-	v8pp::get_option(isolate, module, "require", require);
-	return v8pp::call_v8(isolate, require, module, name);
-}
-
 void event_emitter::on(std::string const& name, v8::Handle<v8::Function> callback)
 {
 	std::unique_lock<std::mutex> lock(mtx_);

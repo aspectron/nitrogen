@@ -50,7 +50,15 @@ void call_in_node(F&& f)
 }
 
 /// Call module.require(name) from C++ code
-NITROGEN_API v8::Handle<v8::Value> require(v8::Handle<v8::Object> module, char const* name);
+inline v8::Handle<v8::Value> require(v8::Handle<v8::Object> module, char const* name)
+{
+	v8::Isolate* isolate = module->GetIsolate();
+	v8::HandleScope scope(isolate);
+	v8::Local<v8::Value> require_name = v8::String::NewFromUtf8(isolate, "require");
+	v8::Local<v8::Value> module_name = v8::String::NewFromUtf8(isolate, name);
+	v8::Local<v8::Function> require = module->Get(require_name).As<v8::Function>();
+	return require->Call(module, 1, &module_name);
+}
 
 /// Event emitter
 class NITROGEN_API event_emitter
