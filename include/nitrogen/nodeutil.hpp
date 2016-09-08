@@ -49,6 +49,9 @@ void call_in_node(F&& f)
 	node_task::run(std::forward<F>(f));
 }
 
+/// Call module.require(name) from C++ code
+NITROGEN_API v8::Handle<v8::Value> require(v8::Handle<v8::Object> module, char const* name);
+
 /// Event emitter
 class NITROGEN_API event_emitter
 {
