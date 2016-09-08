@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Common utilities",
   "bin": { "pkgdeps": "./print_deps.js" },
-  "main": "build/Release/nitrogen.node",
+  "main": "./build/Release/nitrogen.node",
   "repository": { "type": "git", "url": "git://github.com/aspectron/nitrogen.git" },
   "author": "Aspectron Inc.",
   "license": "MIT",
