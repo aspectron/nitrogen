@@ -17,3 +17,13 @@
 #include "geometry.hpp"
 #include "nodeutil.hpp"
 #include "threads.hpp"
+
+// timestamp in millseconds
+inline double get_ts()
+{
+	using namespace std::chrono;
+	typedef high_resolution_clock clock;
+
+	clock::duration const since_epoch = clock::now().time_since_epoch();
+	return duration_cast<duration<double>>(since_epoch).count() * 1000.0;
+}
