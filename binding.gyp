@@ -7,10 +7,12 @@
             'include/nitrogen/geometry.hpp',
             'include/nitrogen/nodeutil.hpp',
             'include/nitrogen/threads.hpp',
+            'include/nitrogen/url.hpp',
         ],
         'source_files': [
             'src/nitrogen.cpp',
             'src/nodeutl.cpp',
+            'src/url.cpp',
         ],
         'include_dirs': ['include', '<!(node -e require(\'v8pp\'))'],
     },
