@@ -252,7 +252,7 @@ struct v8pp::convert<aspect::box<T>>
 	{
 		v8::HandleScope scope(isolate);
 
-		result_type result;
+		from_type result;
 
 		if (value->IsArray())
 		{
