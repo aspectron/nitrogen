@@ -2,9 +2,6 @@
 
 var path = require('path')
 
-var mode = process.argv[2]
-var modules = process.argv.slice(3).map(function(name) { return require.resolve(name) });
-
 function replace_ext(filename, new_ext)
 {
 	return path.join(
@@ -21,19 +18,47 @@ function print(filename)
 	console.log(filename)
 }
 
-switch (mode)
+function print_includes(modules)
 {
-case 'include':
-	modules.forEach(function(module) {
+	modules.forEach(function(module)
+	{
 		print(path.join(module, '../../../include'))
 	})
-	break
-case 'lib':
-	modules.forEach(function(module) {
+}
+
+function print_libs(modules)
+{
+	modules.forEach(function(module)
+	{
 		print(process.platform === 'win32'? replace_ext(module, '.lib') : module)
 	})
-	break
-default:
-	console.error("Unknown mode " + mode + ", use `include` or `lib`")
-	process.exit(-1)
 }
+
+function print_gyps(modules)
+{
+	modules.forEach(function(module) {
+		print(path.join(module, '../../../binding.gyp'))
+	})
+}
+
+function main(args)
+{
+	var modes =
+	{
+		'include': print_includes,
+		'lib': print_libs,
+		'gyp': print_gyps,
+	}
+
+	var mode = args[0] || ''
+	var handler = modes[mode]
+	if (!handler)
+	{
+		console.error("Unknown mode " + mode + ", use one of these: " + Object.keys(modes))
+		return
+	}
+	var modules = args.slice(1).map(function(name) { return require.resolve(name) });
+	handler(modules)
+}
+
+main(process.argv.slice(2))
